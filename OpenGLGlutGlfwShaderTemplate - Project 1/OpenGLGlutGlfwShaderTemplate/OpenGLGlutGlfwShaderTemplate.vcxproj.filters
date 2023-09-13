@@ -36,6 +36,21 @@
     <ClCompile Include="week1-1-TriangleWithColors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="week1-2-Sierpenski.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="week1-3-Sierpenski_2.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="week1-4-Square.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="week1-5-Square-interleaved.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="week1-6-TriangleAndSquare.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="prepShader.h">
@@ -56,6 +71,12 @@
       <Filter>Shaders</Filter>
     </None>
     <None Include="trianglewithcolor.vert">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="square.frag">
+      <Filter>Shaders</Filter>
+    </None>
+    <None Include="square.vert">
       <Filter>Shaders</Filter>
     </None>
   </ItemGroup>
