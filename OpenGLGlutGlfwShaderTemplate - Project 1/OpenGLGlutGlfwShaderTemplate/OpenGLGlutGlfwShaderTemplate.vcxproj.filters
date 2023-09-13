@@ -33,7 +33,7 @@
     <ClCompile Include="testGlfwWithShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\week1-1-TriangleWithColors.cpp">
+    <ClCompile Include="week1-1-TriangleWithColors.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
