@@ -1,0 +1,4 @@
+﻿  prepShader.cpp
+D:\_\__OpenGL Projects\GAME2012_W01_LectureProject\OpenGLGlutGlfwShaderTemplate\prepShader.cpp(16,19): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+  testGlutWithShader.cpp
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W01_LectureProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
