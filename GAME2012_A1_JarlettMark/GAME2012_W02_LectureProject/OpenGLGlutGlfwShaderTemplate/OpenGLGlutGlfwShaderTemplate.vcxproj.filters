@@ -34,9 +34,6 @@
     <None Include="cube.vert">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="projection.vert">
-      <Filter>Header Files</Filter>
-    </None>
     <None Include="transform.vert">
       <Filter>Header Files</Filter>
     </None>

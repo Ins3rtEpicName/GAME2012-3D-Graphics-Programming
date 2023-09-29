@@ -32,8 +32,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="cube.frag" />
-    <None Include="cube.vert" />
-    <None Include="projection.vert" />
+    <None Include="cube.vert">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </None>
     <None Include="transform.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
