@@ -18,13 +18,7 @@
     <ClCompile Include="prepShader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="02_Transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="01_Square.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="03_Projection.cpp">
+    <ClCompile Include="GAME2012_A1_JarlettMark.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
