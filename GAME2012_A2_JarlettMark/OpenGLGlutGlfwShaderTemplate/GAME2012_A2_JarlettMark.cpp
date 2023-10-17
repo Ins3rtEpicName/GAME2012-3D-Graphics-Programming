@@ -29,6 +29,7 @@ using namespace std;
 #define XY_AXIS glm::vec3(1,0.9,0)
 #define YZ_AXIS glm::vec3(0,1,1)
 #define XZ_AXIS glm::vec3(1,0,1)
+#define XYZ_AXIS glm::vec3(1,0.7,0.5) // for matching the cube angle in A2 Part 2 image of the cube
 #define SPEED 0.25f
 
 enum keyMasks {
@@ -52,79 +53,37 @@ GLshort cube_indices[] = {
 	// Front.
 	0, 1, 2, 3,
 	// Left.
-	4, 5, 6, 7,			// 7, 4, 0, 3,
+	7, 4, 0, 3,
 	// Bottom.
-	8, 9, 10, 11,		// 0, 4, 5, 1,
+	0, 4, 5, 1,
 	// Right.
-	12, 13, 14, 15,		// 2, 1, 5, 6,
+	2, 1, 5, 6,
 	// Back.
-	16, 17, 18, 19,		// 5, 4, 7, 6,
+	5, 4, 7, 6,
 	// Top.
-	20, 21, 22, 23		// 2, 6, 7, 3
+	2, 6, 7, 3
 };
 
 GLfloat cube_vertices[] = {
 	-0.9f, -0.9f, 0.9f,		// 0.
-	0.9f, -0.9f, 0.9f,		// 1.
-	0.9f, 0.9f, 0.9f,		// 2.
+	 0.9f, -0.9f, 0.9f,		// 1.
+	 0.9f, 0.9f, 0.9f,		// 2.
 	-0.9f, 0.9f, 0.9f,		// 3.
-
-	-0.9f, 0.9f, -0.9f,		// 4. (copy of old 7)
-	-0.9f, -0.9f, -0.9f,    // 5. (copy of old 4)
-	-0.9f, -0.9f, 0.9f,		// 6. (copy of old 0)
-	-0.9f, 0.9f, 0.9f,		// 7. (copy of old 3)
-
-	-0.9f, -0.9f, 0.9f,		// 8. (copy of old 0)
-	-0.9f, -0.9f, -0.9f,    // 9. (copy of old 4)
-	0.9f, -0.9f, -0.9f,		// 10. (copy of old 5)
-	0.9f, -0.9f, 0.9f,		// 11. (copy of old 1)
-
-	0.9f, 0.9f, 0.9f,		// 12. (copy of old 2)
-	0.9f, -0.9f, 0.9f,		// 13. (copy of old 1)
-	0.9f, -0.9f, -0.9f,		// 14. (copy of old 5)
-	0.9f, 0.9f, -0.9f,		// 15. (copy of old 6)
-
-	0.9f, -0.9f, -0.9f,		// 16. (copy of old 5)
-	-0.9f, -0.9f, -0.9f,    // 17. (copy of old 4)
-	-0.9f, 0.9f, -0.9f,		// 18. (copy of old 7)
-	0.9f, 0.9f, -0.9f,		// 19. (copy of old 6)
-
-	0.9f, 0.9f, 0.9f,		// 20. (copy of old 2)
-	0.9f, 0.9f, -0.9f,		// 21. (copy of old 6)
-	-0.9f, 0.9f, -0.9f,		// 22. (copy of old 7)
-	-0.9f, 0.9f, 0.9f		// 23. (copy of old 3)
+	-0.9f, -0.9f, -0.9f,	// 4.
+	 0.9f, -0.9f, -0.9f,	// 5.
+	 0.9f, 0.9f, -0.9f,		// 6.
+	-0.9f, 0.9f, -0.9f,		// 7.
 };
 
 GLfloat cube_colors[] = {
-	1.0f, 0.0f, 0.0f,		// 0.
+	1.0f, 1.0f, 1.0f,		// 0.
 	1.0f, 0.0f, 0.0f,		// 1.
 	1.0f, 0.0f, 0.0f,		// 2.
-	1.0f, 0.0f, 0.0f,		// 3.
-
-	0.0f, 1.0f, 0.0f,		// 4.
+	1.0f, 1.0f, 1.0f,		// 3.
+	0.0f, 0.0f, 1.0f,		// 4.
 	0.0f, 1.0f, 0.0f,		// 5.
 	0.0f, 1.0f, 0.0f,		// 6.
-	0.0f, 1.0f, 0.0f,		// 7.
-
-	0.0f, 0.0f, 1.0f,		// 8.
-	0.0f, 0.0f, 1.0f,		// 9.
-	0.0f, 0.0f, 1.0f,		// 10.
-	0.0f, 0.0f, 1.0f,		// 11.
-
-	1.0f, 1.0f, 0.0f,		// 12.
-	1.0f, 1.0f, 0.0f,		// 13.
-	1.0f, 1.0f, 0.0f,		// 14.
-	1.0f, 1.0f, 0.0f,		// 15.
-
-	1.0f, 0.0f, 1.0f,		// 16.
-	1.0f, 0.0f, 1.0f,		// 17.
-	1.0f, 0.0f, 1.0f,		// 18.
-	1.0f, 0.0f, 1.0f,		// 19.
-
-	0.0f, 1.0f, 1.0f,		// 20.
-	0.0f, 1.0f, 1.0f,		// 21.
-	0.0f, 1.0f, 1.0f,		// 22.
-	0.0f, 1.0f, 1.0f		// 23.
+	0.0f, 0.0f, 1.0f,		// 7.
 };
 
 // Wireframe data.
@@ -175,7 +134,7 @@ void timer(int); // Prototype.
 
 void resetView()
 {
-	position = glm::vec3(0.0f, 0.0f, 3.0f);
+	position = glm::vec3(0.0f, 0.0f, 5.0f);
 	frontVec = glm::vec3(0.0f, 0.0f, -1.0f);
 	worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	pitch = 0.0f;
@@ -258,7 +217,7 @@ void calculateView()
 
 	View = glm::lookAt(
 		position, // Camera position
-		position + frontVec, // Look target
+		glm::vec3(0.0f,0.0f,0.0f), // Always looking at origin
 		upVec); // Up vector
 }
 
@@ -326,16 +285,18 @@ void drawWire()
 //
 void display(void)
 {
+	glClearColor(0.125f, 0.0f, 0.22f, 1.0f); // this is for the background colour
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindVertexArray(vao);
 
-		transformObject(scale, XY_AXIS, angle += 1.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+		transformObject(scale, XYZ_AXIS, 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));
+		
 
 		//Ordering the GPU to start the pipeline
 
 		drawCube();
-		drawWire(); // Draw wires over cubes.
+		//drawWire(); // Draw wires over cubes.
 
 	glBindVertexArray(0); // Can optionally unbind the vertex array to avoid modification.
 
