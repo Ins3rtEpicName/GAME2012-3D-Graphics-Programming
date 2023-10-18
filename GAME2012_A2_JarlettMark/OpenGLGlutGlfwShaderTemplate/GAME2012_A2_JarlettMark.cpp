@@ -29,7 +29,7 @@ using namespace std;
 #define XY_AXIS glm::vec3(1,0.9,0)
 #define YZ_AXIS glm::vec3(0,1,1)
 #define XZ_AXIS glm::vec3(1,0,1)
-#define XYZ_AXIS glm::vec3(1,0.7,0.5) // for matching the cube angle in A2 Part 2 image of the cube
+#define XYZ_AXIS glm::vec3(0.8,0.4,0.3) // for matching the cube angle in A2 Part 2 image of the cube
 #define SPEED 0.25f
 
 enum keyMasks {
@@ -289,14 +289,15 @@ void display(void)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindVertexArray(vao);
-
-		transformObject(scale, XYZ_AXIS, 45.0f, glm::vec3(0.0f, 0.0f, 0.0f));
-		
-
+	// cube 1
+		transformObject(scale, XYZ_AXIS, angle = 53.0f /*0.0f*/, glm::vec3(0.0f, 0.45f, 0.0f));
 		//Ordering the GPU to start the pipeline
-
 		drawCube();
 		//drawWire(); // Draw wires over cubes.
+
+	// cube 2
+		transformObject(scale, XYZ_AXIS, angle = 53.0f /*0.0f*/, glm::vec3(0.0f, -0.45f, 0.0f));
+		drawCube();
 
 	glBindVertexArray(0); // Can optionally unbind the vertex array to avoid modification.
 
