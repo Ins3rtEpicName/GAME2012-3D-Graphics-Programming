@@ -35,8 +35,12 @@ using namespace std;
 enum keyMasks {
 	KEY_FORWARD =		0b00000001,		// 0x01 or   1	or   01
 	KEY_BACKWARD =		0b00000010,		// 0x02 or   2	or   02
-	KEY_MOUSECLICKED =	0b00000100		// 0x04 or	 4  or   04
-	// Any other keys you want to add.
+	KEY_MOUSECLICKED =	0b00000100,		// 0x04 or	 4  or   04
+	// Any other keys you want to add. 
+	KEY_LEFT =          0b00001000,		// 0x08 or   8  or	 08
+	KEY_RIGHT =         0b00010000,		// 0x16 or   16 
+	KEY_R =				0b00100000,		// 0x32 or	 32 
+	KEY_F =				0b01000000		// 0x64 or   64
 };
 
 static unsigned int
@@ -315,6 +319,14 @@ void parseKeys()
 		position += frontVec * MOVESPEED;
 	if (keys & KEY_BACKWARD)
 		position -= frontVec * MOVESPEED;
+	if (keys & KEY_LEFT)
+		position -= rightVec * MOVESPEED;
+	if (keys & KEY_RIGHT)
+		position += rightVec * MOVESPEED;
+	if (keys & KEY_R)
+		position += upVec * MOVESPEED;
+	if (keys & KEY_F)
+		position -= upVec * MOVESPEED;
 }
 
 void timer(int) { // Tick of the frame.
@@ -344,6 +356,22 @@ void keyDown(unsigned char key, int x, int y)
 	case 's':
 		if (!(keys & KEY_BACKWARD))
 			keys |= KEY_BACKWARD;
+		break;
+	case 'a':
+		if (!(keys & KEY_LEFT))
+			keys |= KEY_LEFT;
+		break;
+	case 'd':
+		if (!(keys & KEY_RIGHT))
+			keys |= KEY_RIGHT;
+		break;
+	case 'r':
+		if (!(keys & KEY_R))
+			keys |= KEY_R;
+		break;
+	case 'f':
+		if (!(keys & KEY_F))
+			keys |= KEY_F;
 		break;
 	default:
 		break;
@@ -376,6 +404,18 @@ void keyUp(unsigned char key, int x, int y) // x and y is mouse location upon ke
 		break;
 	case 's':
 		keys &= ~KEY_BACKWARD;
+		break;
+	case 'a':
+		keys &= ~KEY_LEFT;
+		break;
+	case 'd':
+		keys &= ~KEY_RIGHT;
+		break;
+	case 'r':
+		keys &= ~KEY_R;
+		break;
+	case 'f':
+		keys &= ~KEY_F;
 		break;
 	case ' ':
 		resetView();
