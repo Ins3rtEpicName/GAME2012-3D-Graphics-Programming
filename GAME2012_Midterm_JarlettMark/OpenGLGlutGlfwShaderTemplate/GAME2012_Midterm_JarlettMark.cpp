@@ -4,7 +4,10 @@
 // 3D Graphics Programming Midterm
 //
 // Description:
-//	To be updated with useful info before submit!!
+//	Small 12x12 maze made for GAME2012 - 3D Graphics Programming Midterm. Uses cubes to draw items that make up the objects in the world.
+//	Tried to make a function that would accept a colour (GLfloat myColour[]) parameter but apparently sizeof doesnt see the actual size, it said
+//	it was size 4 or 8 instead of 24 or 96 (if i remember correctly). Other than that I hope the way I made squares with cubes is ok! Thank you for the
+//	zoom help video/stream, hints and extension on the midterm and A2 dates. Appreciate it and hope you have/had a good intersession week!
 //*****************************************************************************
 
 #include <vector>
@@ -30,7 +33,7 @@ using namespace std;
 #define XY_AXIS glm::vec3(1,0.9,0)
 #define YZ_AXIS glm::vec3(0,1,1)
 #define XZ_AXIS glm::vec3(1,0,1)
-#define XYZ_AXIS glm::vec3(1.0,1.0,1.0) // for matching the cube angle in A2 Part 2 image of the cube
+#define XYZ_AXIS glm::vec3(1.0,1.0,1.0) 
 #define SPEED 0.25f
 
 enum keyMasks {
@@ -73,7 +76,6 @@ GLshort cube_indices[] = {
 	2, 6, 7, 3
 };
 
-
 GLfloat cube_vertices[] = {
 	 0.0f, 0.0f, 0.0f,		// 0.
 	 1.0f, 0.0f, 0.0f,		// 1.
@@ -96,27 +98,127 @@ GLfloat cube_colors[] = {
 	0.0f, 0.0f, 1.0f,		// 7.
 };
 
+GLfloat door_colors[] = {
+	1.0f, 0.52f, 0.72f,		// 0.
+	1.0f, 0.52f, 0.72f,		// 1.
+	1.0f, 0.52f, 0.72f,		// 2.
+	1.0f, 0.52f, 0.72f,		// 3.
+	1.0f, 0.52f, 0.72f,		// 4.
+	1.0f, 0.52f, 0.72f,		// 5.
+	1.0f, 0.52f, 0.72f,		// 6.
+	1.0f, 0.52f, 0.72f,		// 7.
+};
+
+GLshort cubeInRoom_indices[] = {
+	// Front.
+	0, 1, 2, 3,
+	// Left.
+	4, 5, 6, 7,			// 7, 4, 0, 3,
+	// Bottom.
+	8, 9, 10, 11,		// 0, 4, 5, 1,
+	// Right.
+	12, 13, 14, 15,		// 2, 1, 5, 6,
+	// Back.
+	16, 17, 18, 19,		// 5, 4, 7, 6,
+	// Top.
+	20, 21, 22, 23		// 2, 6, 7, 3
+};
+
+GLfloat cubeInRoom_vertices[] = {
+	0.0f, 0.0f, 1.0f,		// 0.
+	1.0f, 0.0f, 1.0f,		// 1.
+	1.0f, 1.0f, 1.0f,		// 2.
+	0.0f, 1.0f, 1.0f,		// 3.
+
+	0.0f, 1.0f, 0.0f,		// 4. (copy of old 7)
+	0.0f, 0.0f, 0.0f,		// 5. (copy of old 4)
+	0.0f, 0.0f, 1.0f,		// 6. (copy of old 0)
+	0.0f, 1.0f, 1.0f,		// 7. (copy of old 3)
+
+	0.0f, 0.0f, 1.0f,		// 8. (copy of old 0)
+	0.0f, 0.0f, 0.0f,		 // 9. (copy of old 4)
+	1.0f, 0.0f, 0.0f,		// 10. (copy of old 5)
+	1.0f, 0.0f, 1.0f,		// 11. (copy of old 1)
+
+	1.0f, 1.0f, 1.0f,		// 12. (copy of old 2)
+	1.0f, 0.0f, 1.0f,		// 13. (copy of old 1)
+	1.0f, 0.0f, 0.0f,		// 14. (copy of old 5)
+	1.0f, 1.0f, 0.0f,		// 15. (copy of old 6)
+
+	1.0f, 0.0f, 0.0f,		// 16. (copy of old 5)
+	0.0f, 0.0f, 0.0f,       // 17. (copy of old 4)
+	0.0f, 1.0f, 0.0f,		// 18. (copy of old 7)
+	1.0f, 1.0f, 0.0f,		// 19. (copy of old 6)
+
+	1.0f, 1.0f, 1.0f,		// 20. (copy of old 2)
+	1.0f, 1.0f, 0.0f,		// 21. (copy of old 6)
+	0.0f, 1.0f, 0.0f,		// 22. (copy of old 7)
+	0.0f, 1.0f, 1.0f		// 23. (copy of old 3)
+};
+
 // Colours for the 3 cubes in the 4x4 room
 GLfloat redCube_inRoom_colors[] = {
-	1.0f, 0.0f, 0.0f, // 0.
-	1.0f, 0.0f, 0.0f, // 1.
-	1.0f, 0.0f, 0.0f, // 2.
-	1.0f, 0.0f, 0.0f, // 3.
-	1.0f, 0.0f, 0.0f, // 4.
-	1.0f, 0.0f, 0.0f, // 5.
-	1.0f, 0.0f, 0.0f, // 6.
-	1.0f, 0.0f, 0.0f, // 7.
+	0.0f, 0.0f, 0.0f,		// 0.
+	0.0f, 0.0f, 0.0f,		// 1.
+	0.0f, 0.0f, 0.0f,		// 2.
+	0.0f, 0.0f, 0.0f,		// 3.
+		  		
+	1.0f, 0.0f, 0.0f,		// 4.
+	1.0f, 0.0f, 0.0f,		// 5.
+	1.0f, 0.0f, 0.0f,		// 6.
+	1.0f, 0.0f, 0.0f,		// 7.
+		  		
+	1.0f, 0.0f, 0.0f,		// 8.
+	1.0f, 0.0f, 0.0f,		// 9.
+	1.0f, 0.0f, 0.0f,		// 10.
+	1.0f, 0.0f, 0.0f,		// 11.
+		  		
+	1.0f, 0.0f, 0.0f,		// 12.
+	1.0f, 0.0f, 0.0f,		// 13.
+	1.0f, 0.0f, 0.0f,		// 14.
+	1.0f, 0.0f, 0.0f,		// 15.
+		  		
+	1.0f, 1.0f, 1.0f,		// 16.
+	1.0f, 1.0f, 1.0f,		// 17.
+	1.0f, 1.0f, 1.0f,		// 18.
+	1.0f, 1.0f, 1.0f,		// 19.
+		  		
+	1.0f, 0.0f, 0.0f,		// 20.
+	1.0f, 0.0f, 0.0f,		// 21.
+	1.0f, 0.0f, 0.0f,		// 22.
+	1.0f, 0.0f, 0.0f		// 23.
 };
 
 GLfloat greenCube_inRoom_colors[] = {
-	0.0f, 1.0f, 0.0f,		// 0.
-	0.0f, 1.0f, 0.0f,		// 1.
-	0.0f, 1.0f, 0.0f,		// 2.
-	0.0f, 1.0f, 0.0f,		// 3.
-	0.0f, 1.0f, 0.0f,		// 4.
-	0.0f, 1.0f, 0.0f,		// 5.
-	0.0f, 1.0f, 0.0f,		// 6.
-	0.0f, 1.0f, 0.0f,		// 7.
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+
+	1.0f, 1.0f, 1.0f,		
+	1.0f, 1.0f, 1.0f,		
+	1.0f, 1.0f, 1.0f,		
+	1.0f, 1.0f, 1.0f,		
+
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+
+	0.0f, 0.0f, 0.0f,		
+	0.0f, 0.0f, 0.0f,		
+	0.0f, 0.0f, 0.0f,		
+	0.0f, 0.0f, 0.0f,		
+
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
+	0.0f, 1.0f, 0.0f,		
 };
 
 GLfloat blueCube_inRoom_colors[] = {
@@ -124,10 +226,31 @@ GLfloat blueCube_inRoom_colors[] = {
 	0.0f, 0.0f, 1.0f,		// 1.
 	0.0f, 0.0f, 1.0f,		// 2.
 	0.0f, 0.0f, 1.0f,		// 3.
+
 	0.0f, 0.0f, 1.0f,		// 4.
 	0.0f, 0.0f, 1.0f,		// 5.
 	0.0f, 0.0f, 1.0f,		// 6.
 	0.0f, 0.0f, 1.0f,		// 7.
+
+	0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f,
+	0.0f, 0.0f, 0.0f,
+
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+	0.0f, 0.0f, 1.0f,
+
+	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
+	1.0f, 1.0f, 1.0f,
 };
 
 // Wall colour for maze
@@ -140,6 +263,29 @@ GLfloat wall_colour[] = {
 	0.18f, 0.083f, 0.29f,		// 5.
 	0.18f, 0.083f, 0.29f,		// 6.
 	0.18f, 0.083f, 0.29f,		// 7.
+};
+
+// grid / floor colours
+GLfloat grid_colour1[] = {
+	0.60f, 1.0f, 0.95f,		// 0.
+	0.60f, 1.0f, 0.95f,		// 1.
+	0.60f, 1.0f, 0.95f,		// 2.
+	0.60f, 1.0f, 0.95f,		// 3.
+	0.60f, 1.0f, 0.95f,		// 4.
+	0.60f, 1.0f, 0.95f,		// 5.
+	0.60f, 1.0f, 0.95f,		// 6.
+	0.60f, 1.0f, 0.95f,		// 7.
+};
+
+GLfloat grid_colour2[] = {
+	0.60f, 0.55f, 0.9f,		// 0.
+	0.60f, 0.55f, 0.9f,		// 1.
+	0.60f, 0.55f, 0.9f,		// 2.
+	0.60f, 0.55f, 0.9f,		// 3.
+	0.60f, 0.55f, 0.9f,		// 4.
+	0.60f, 0.55f, 0.9f,		// 5.
+	0.60f, 0.55f, 0.9f,		// 6.
+	0.60f, 0.55f, 0.9f,		// 7.
 };
 
 // Wireframe data.
@@ -181,14 +327,18 @@ GLfloat wire_colors[] = {
 };
 
 float scale = 1.0f, angle = 0.0f;
-float angle2 = 0.0f; // for cubes in room, janky
+float angle2, angle3, angle4 = 0.0f; // for cubes in room, my jank/lazy code woooo (sorry)
 float scale_x, scale_y, scale_z;
 glm::vec3 position, frontVec, worldUp, upVec, rightVec; // Set by function
 GLfloat pitch, yaw;
 
 // used for controlling yaw with q and e
 float xOffset;
-float lastX, xpos; 
+float lastX, xpos;
+
+// door stuff
+float doorZ = -7.5f;
+float doorSpeed = -0.01f;
 
 void timer(int); // Prototype.
 
@@ -319,6 +469,24 @@ void transformObject(float scale_x, float scale_y, float scale_z, glm::vec3 rota
 	glUniformMatrix4fv(mvp_ID, 1, GL_FALSE, &MVP[0][0]);
 }
 
+// TODO: work on different colour setter function for cubes
+//void drawCubeSetColour(std::vector<GLfloat> customColour[])
+//{
+//	GLsizei size = customColour->size() * sizeof(customColour[0]);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+//
+//	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+//	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+//
+//	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+//	glBufferData(GL_ARRAY_BUFFER, 96, &customColour, GL_STATIC_DRAW);
+//
+//	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+//
+//	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+//}
+
 //---------------------------------------------------------------------
 //
 // drawCube
@@ -339,23 +507,53 @@ void drawCube()
 	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
 }
 
-// TODO: work on different colour setter function for cubes
-//void drawCubeSetColour(std::vector<GLfloat> customColour[])
-//{
-//	GLsizei size = customColour->size() * sizeof(customColour[0]);
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
-//
-//	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-//	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
-//
-//	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
-//	glBufferData(GL_ARRAY_BUFFER, 96, &customColour, GL_STATIC_DRAW);
-//
-//	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
-//
-//	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
-//}
+void drawDoor()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(door_colors), door_colors, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+}
+
+void drawCubeFloor1()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(grid_colour1), grid_colour1, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+}
+
+void drawCubeFloor2()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(grid_colour2), grid_colour2, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+}
 
 void drawCubeWall()
 {
@@ -376,13 +574,45 @@ void drawCubeWall()
 void drawRedCubeRoom()
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cube_indices), cube_indices, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeInRoom_indices), cubeInRoom_indices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(cube_vertices), cube_vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeInRoom_vertices), cubeInRoom_vertices, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(redCube_inRoom_colors), redCube_inRoom_colors, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+}
+
+void drawGreenCubeRoom()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeInRoom_indices), cubeInRoom_indices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeInRoom_vertices), cubeInRoom_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(greenCube_inRoom_colors), greenCube_inRoom_colors, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
+
+	glDrawElements(GL_QUADS, 24, GL_UNSIGNED_SHORT, 0);
+}
+
+void drawBlueCubeRoom()
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(cubeInRoom_indices), cubeInRoom_indices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, points_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(cubeInRoom_vertices), cubeInRoom_vertices, GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, colors_vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(blueCube_inRoom_colors), blueCube_inRoom_colors, GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0); // Close the currently open buffer.
 
@@ -411,19 +641,25 @@ void drawWire()
 
 void drawGrid() // 12x12 floor
 {
-	float xGrid = 0.0f;
-	float zGrid = 0.0f;
-	for (int j = 0; j < 12; j++)
+	int itr = 0;
+	for (int rows = 0; rows < 12; rows++)
 	{
-		xGrid = 0.0f;
-		for (int i = 0; i < 12; i++)
+		for (int cols = 0; cols < 12; cols++)
 		{
-			transformObject(scale_x = 1.0f, scale_y = 0.0f, scale_z = 1.0f, XYZ_AXIS, angle, glm::vec3(xGrid, 0.0f, zGrid));
-			drawCube();
+			transformObject(scale_x = 1.0f, scale_y = 0.0f, scale_z = 1.0f, XYZ_AXIS, angle, glm::vec3((float)cols, 0.0f, 0.0f - rows));
+			if (itr++ % 2 == 0)
+			{
+				drawCubeFloor1();
+				//drawWire();
+			}
+			else
+			{
+				drawCubeFloor2();
+				//drawWire();
+			}
 			drawWire();
-			xGrid += 1.0f;
 		}
-		zGrid += -1.0f;
+		itr++;
 	}
 }
 
@@ -454,7 +690,34 @@ void drawCubeRed(float x, float y, float z, glm::vec3 axis, float angle2, float 
 	float pos_z = posz;
 	transformObject(wallx, wally, wallz, wallaxis, a, glm::vec3(pos_x, pos_y, pos_z));
 	drawRedCubeRoom();
-	drawWire();
+}
+
+void drawCubeGreen(float x, float y, float z, glm::vec3 axis, float angle2, float posx, float posy, float posz)
+{
+	float wallx = x;
+	float wally = y;
+	float wallz = z;
+	glm::vec3 wallaxis = axis;
+	float a = angle2;
+	float pos_x = posx;
+	float pos_y = posy;
+	float pos_z = posz;
+	transformObject(wallx, wally, wallz, wallaxis, a, glm::vec3(pos_x, pos_y, pos_z));
+	drawGreenCubeRoom();
+}
+
+void drawCubeBlue(float x, float y, float z, glm::vec3 axis, float angle2, float posx, float posy, float posz)
+{
+	float wallx = x;
+	float wally = y;
+	float wallz = z;
+	glm::vec3 wallaxis = axis;
+	float a = angle2;
+	float pos_x = posx;
+	float pos_y = posy;
+	float pos_z = posz;
+	transformObject(wallx, wally, wallz, wallaxis, a, glm::vec3(pos_x, pos_y, pos_z));
+	drawBlueCubeRoom();
 }
 
 //void drawCubeCustom(std::vector<GLfloat> setcolour[], float x, float y, float z, glm::vec3 axis, float angle3, float posx, float posy, float posz)
@@ -510,6 +773,7 @@ void display(void)
 	drawCubeWall(0.0f, 4.0f, 4.0f, Y_AXIS, -90.0f, 7.0f, 0.0f, -10.0f); // Top or north(?)
 	drawCubeWall(0.0f, 4.0f, 4.0f, Y_AXIS, -90.0f, 7.0f, 0.0f, -6.0f); // Bottom or south(?)
 	drawCubeWall(0.0f, 4.0f, 4.0f, Y_AXIS, 0.0f, 11.0f, 0.0f, -6.0f); // R
+	drawCubeWall(0.0f, 3.0f, 1.0f, Y_AXIS, 0.0f, 7.0f, 1.0f, -7.5f); // wall above door
 
 		// grid border walls
 	drawCubeWall(0.0f, 4.0f, 12.0f, Y_AXIS, 0.0f, 0.0f, 0.0f, 0.0f); // L
@@ -518,15 +782,36 @@ void display(void)
 	drawCubeWall(0.0f, 4.0f, 4.0f, Y_AXIS, -90.0f, 0.0f, 0.0f, 0.0f); // B / L
 	drawCubeWall(0.0f, 4.0f, 6.0f, Y_AXIS, -90.0f, 6.0f, 0.0f, 0.0f); // B / R
 
+	// door stuff
+	transformObject(0.0f, 1.0f, 1.0f, Y_AXIS, 0.0f, glm::vec3(7.01f, 0.0f, doorZ += doorSpeed));
+	drawDoor();
+	if (doorZ <= -8.5f)
+	{
+		doorSpeed = 0.01f;
+		transformObject(0.0f, 1.0f, 1.0f, Y_AXIS, 0.0f, { 7.01f, 0.0f, doorZ += doorSpeed});
+		drawDoor();
+	}
+	else if (doorZ >= -7.5f)
+	{
+		doorSpeed = -0.01f;
+		transformObject(0.0f, 1.0f, 1.0f, Y_AXIS, 0.0f, { 7.01f, 0.0f, doorZ += doorSpeed});
+		drawDoor();
+	}
+
 	// cubes in the 4x4 room, re-enable culling
 		// brain boomed
 		// drawCubeSetColour(&redCube_inRoom_colors);
 		// drawCubeCustom(&redCube_inRoom_colors, 0.5f, 0.5f, 0.5f, X_AXIS, 45.0f, 9.0f, 2.0f, -8.0f);
 	glEnable(GL_CULL_FACE);
 	glFrontFace(GL_CCW);
-	 glCullFace(GL_BACK);
-	drawCubeRed(0.15f, 0.15f, 0.15f, X_AXIS, angle2 += 5.0f, 9.0f, 2.0f, -9.0f);
-
+	glCullFace(GL_BACK);
+		//red cube
+	drawCubeRed(0.15f, 0.15f, 0.15f, X_AXIS, angle2 -= 10.0f, 9.0f, 2.0f, -9.0f);
+		//green cube
+	drawCubeGreen(0.5, 0.5, 0.5, XY_AXIS, angle3 += 2.0f, 9.0f, 2.0f, -8.0f);
+		//blue cube
+	drawCubeBlue(0.25, 0.25, 0.25, XYZ_AXIS, angle4 -= 5.0f, 9.0f, 2.0f, -7.0f);
+	
 
 	glBindVertexArray(0); // Can optionally unbind the vertex array to avoid modification.
 	glutSwapBuffers(); // Now for a potentially smoother render.
