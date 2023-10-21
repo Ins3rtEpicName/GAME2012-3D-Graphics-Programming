@@ -1,3 +1,6 @@
-﻿  Week3-9-InteractiveAnimationCircle.cpp
-C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W04_LabProject\OpenGLGlutGlfwShaderTemplate\Week3-9-InteractiveAnimationCircle.cpp(158,15): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  OpenGLGlutGlfwShaderTemplate.vcxproj -> C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W04_LabProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
+﻿  prepShader.cpp
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W04_LabProject\OpenGLGlutGlfwShaderTemplate\prepShader.cpp(16,19): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+  Week3-7-UniformDemo.cpp
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W04_LabProject\OpenGLGlutGlfwShaderTemplate\Week3-7-UniformDemo.cpp(172,16): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W04_LabProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
