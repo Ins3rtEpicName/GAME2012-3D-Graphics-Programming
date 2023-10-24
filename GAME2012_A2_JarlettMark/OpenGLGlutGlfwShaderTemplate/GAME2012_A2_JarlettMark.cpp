@@ -129,7 +129,7 @@ GLfloat wire_colors[] = {
 	1.0f, 1.0f, 1.0f		// 7.
 };
 
-float scale = 0.5f, angle = 0.0f;
+float scale = 0.5f, angle = 0.0f, angle2 = 0.0f;
 glm::vec3 position, frontVec, worldUp, upVec, rightVec; // Set by function
 GLfloat pitch, yaw;
 int lastX, lastY;
@@ -294,13 +294,13 @@ void display(void)
 
 	glBindVertexArray(vao);
 	// cube 1
-		transformObject(scale, XYZ_AXIS, angle = 53.0f /*0.0f*/, glm::vec3(0.0f, 0.45f, 0.0f));
+		transformObject(scale, Y_AXIS, angle += 2.0f, glm::vec3(0.0f, 0.45f, 0.0f));
 		//Ordering the GPU to start the pipeline
 		drawCube();
 		//drawWire(); // Draw wires over cubes.
 
 	// cube 2
-		transformObject(scale, XYZ_AXIS, angle = 53.0f /*0.0f*/, glm::vec3(0.0f, -0.45f, 0.0f));
+		transformObject(scale, Y_AXIS, angle2 -= 2.0f, glm::vec3(0.0f, -0.45f, 0.0f));
 		drawCube();
 
 	glBindVertexArray(0); // Can optionally unbind the vertex array to avoid modification.
