@@ -4,7 +4,9 @@
 // Assignment 2 
 //
 // Description:
-//	To be updated with useful info before submit!!
+//	Assignment 2 for GAME2012 - 3D Graphics Programming. Perspective camera with two coloured cubes rotating in opposite directions.
+//	Screenshots are in the zip folder, I have an extra picture from an angle similar
+//  to the one in the A2 document just in case the first screenshot was supposed to be like that. 
 //*****************************************************************************
 
 using namespace std;
