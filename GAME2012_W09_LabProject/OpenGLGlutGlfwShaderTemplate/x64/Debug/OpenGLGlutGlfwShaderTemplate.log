@@ -1,0 +1,6 @@
+﻿  Week6-7-Ellipse.cpp
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W09_LabProject\OpenGLGlutGlfwShaderTemplate\Week6-7-Ellipse.cpp(70,45): warning C4311: 'type cast': pointer truncation from 'void *' to 'long'
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W09_LabProject\OpenGLGlutGlfwShaderTemplate\Week6-7-Ellipse.cpp(70,45): warning C4302: 'type cast': truncation from 'void *' to 'long'
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W09_LabProject\OpenGLGlutGlfwShaderTemplate\Week6-7-Ellipse.cpp(101,40): warning C4305: '+=': truncation from 'double' to 'float'
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W09_LabProject\OpenGLGlutGlfwShaderTemplate\Week6-7-Ellipse.cpp(239,31): warning C4312: 'type cast': conversion from 'long' to 'void *' of greater size
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W09_LabProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
