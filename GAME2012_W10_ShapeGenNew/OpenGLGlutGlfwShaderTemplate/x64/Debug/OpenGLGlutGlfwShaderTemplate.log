@@ -1,0 +1,16 @@
+﻿  01_ShapeGenerator.cpp
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(29,23): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(126,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(127,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(278,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(289,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\OpenGLGlutGlfwShaderTemplate\Shape.h(353,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W10_ShapeGenNew\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
