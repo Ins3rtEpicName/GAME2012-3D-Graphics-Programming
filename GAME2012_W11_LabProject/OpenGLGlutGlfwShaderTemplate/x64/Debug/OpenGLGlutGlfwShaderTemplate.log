@@ -1,0 +1,6 @@
+﻿  prepShader.cpp
+  Week10-2-CubeWithTexture.cpp
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W11_LabProject\OpenGLGlutGlfwShaderTemplate\prepShader.cpp(16,19): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W11_LabProject\OpenGLGlutGlfwShaderTemplate\Week10-2-CubeWithTexture.cpp(71,33): warning C4305: 'initializing': truncation from 'double' to 'GLfloat'
+  Generating Code...
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W11_LabProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
