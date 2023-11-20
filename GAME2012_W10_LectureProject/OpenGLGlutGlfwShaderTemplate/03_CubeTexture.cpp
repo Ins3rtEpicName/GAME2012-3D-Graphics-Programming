@@ -100,7 +100,7 @@ void timer(int); // Prototype.
 
 void resetView()
 {
-	position = glm::vec3(10.0f, 5.0f, 25.0f); // Super pulled back because of grid size.
+	position = glm::vec3(0.0f, 5.0f, 5.0f); // Super pulled back because of grid size.
 	frontVec = glm::vec3(0.0f, 0.0f, -1.0f);
 	worldUp = glm::vec3(0.0f, 1.0f, 0.0f);
 	pitch = 0.0f;
@@ -237,6 +237,7 @@ void transformObject(glm::vec3 scale, glm::vec3 rotationAxis, float rotationAngl
 //
 void display(void)
 {
+	glClearColor(0.125f, 0.0f, 0.22f, 1.0f); // this is for the background colour
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glBindVertexArray(vao);
 		glBindTexture(GL_TEXTURE_2D, blankID);

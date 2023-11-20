@@ -1,16 +1,28 @@
-﻿  04_TransparentTexture.cpp
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(26,23): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=GLfloat
-          ]
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=GLfloat
-          ]
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(246,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(257,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(321,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W10_LectureProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
+﻿  03_CubeTexture.cpp
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(26,50): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+  (compiling source file '03_CubeTexture.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244:         with
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244:         [
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244:             _Ty=GLfloat
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(94,30): warning C4244:         ]
+  (compiling source file '03_CubeTexture.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244:         with
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244:         [
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244:             _Ty=GLfloat
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(95,30): warning C4244:         ]
+  (compiling source file '03_CubeTexture.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(246,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '03_CubeTexture.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(257,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '03_CubeTexture.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\OpenGLGlutGlfwShaderTemplate\Shape.h(321,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '03_CubeTexture.cpp')
+  
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W10_LectureProject\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe

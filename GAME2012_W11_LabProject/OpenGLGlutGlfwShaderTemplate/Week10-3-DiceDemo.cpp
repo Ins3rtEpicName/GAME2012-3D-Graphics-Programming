@@ -1,9 +1,12 @@
 
-/** @file Week10-3-DiceDemo.cpp
- *  @brief Dice demo - using spritesheet
- *  @author Hooman Salamat
- *  @bug No known bugs.
- */
+//***************************************************************************
+// GAME2012_A3_JarlettMark.cpp by Mark Jarlett 101427705
+// Assignment 3 submission.
+//
+// Description:
+// Add stuff before submitting!!
+//
+//***************************************************************************
 
 #include <iostream>
 #include "stdlib.h"
@@ -125,7 +128,7 @@ static int isWire = 0; // Is wireframe?
 
 void resetView()
 {
-	position = glm::vec3(0.0f, 0.0f, 5.0f);
+	position = glm::vec3(0.0f, 1.0f, 3.0f);
 	frontVec = glm::vec3(0.0f, 0.0f, -1.0f);
 	worldUp = glm::vec3(0, 1, 0);
 	pitch = 0.0f;
@@ -219,8 +222,6 @@ void init(void)
 
 	// Enable depth test.
 	glEnable(GL_DEPTH_TEST);
-
-	glClearColor(1.0, 1.0, 1.0, 1.0); // black background
 }
 
 //---------------------------------------------------------------------
@@ -236,7 +237,7 @@ void calculateView()
 	rightVec = glm::normalize(glm::cross(frontVec, worldUp));
 	upVec = glm::normalize(glm::cross(rightVec, frontVec));
 
-	view = glm::lookAt(position, position + frontVec, upVec);
+	view = glm::lookAt(position, glm::vec3(0, 0, 0), upVec);
 }
 
 //---------------------------------------------------------------------
@@ -264,15 +265,16 @@ void display(void)
 	deltaTime = currentTime - lastTime;
 	lastTime = currentTime;
 
+	glClearColor(0.125f, 0.0f, 0.22f, 1.0f); // this is for the background colour
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glBindVertexArray(vao);
 
 	// Update the projection or view if perspective.
-	projection = glm::perspective(glm::radians(60.0f), 4.0f / 3.0f, 0.1f, 100.0f);
+	projection = glm::perspective(glm::radians(60.0f), 16.0f / 10.0f, 0.1f, 100.0f);
 
 	calculateView();
-	transformObject(0.4f, XYZ_AXIS, rotAngle -= 5, glm::vec3(0.0f, 0.0f, 0.0f));
+	transformObject(0.3f, XYZ_AXIS, rotAngle += 10, glm::vec3(0.0f, 0.0f, 0.0f));
 
 	//Ordering the GPU to start the pipeline
 	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_SHORT, 0);
@@ -380,8 +382,8 @@ int main(int argc, char** argv)
 {
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DEPTH | GLUT_DOUBLE);
-	glutInitWindowSize(1024, 768);
-	glutCreateWindow("Dice Demo");
+	glutInitWindowSize(1280, 800);
+	glutCreateWindow("GAME2012_A3_JarlettMark");
 
 	glewInit();	//Initializes the glew and prepares the drawing pipeline.
 	init();
