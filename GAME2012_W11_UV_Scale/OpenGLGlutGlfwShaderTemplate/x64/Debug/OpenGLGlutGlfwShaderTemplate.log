@@ -1,0 +1,21 @@
+﻿  01_UV_Scale.cpp
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(32,23): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(154,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(166,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(167,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(210,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(271,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(324,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(335,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(382,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(400,1): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\OpenGLGlutGlfwShaderTemplate\Shape.h(431,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W11_UV_Scale\x64\Debug\OpenGLGlutGlfwShaderTemplate.exe
