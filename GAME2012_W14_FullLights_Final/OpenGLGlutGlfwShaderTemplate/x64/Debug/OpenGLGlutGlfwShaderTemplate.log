@@ -1,0 +1,20 @@
+﻿  01_Lights.cpp
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(38,1): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(157,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+          with
+          [
+              _Ty=GLfloat
+          ]
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(214,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(263,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(356,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(374,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(390,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(441,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\Bin\OpenGLGlutGlfwShaderTemplate.exe
