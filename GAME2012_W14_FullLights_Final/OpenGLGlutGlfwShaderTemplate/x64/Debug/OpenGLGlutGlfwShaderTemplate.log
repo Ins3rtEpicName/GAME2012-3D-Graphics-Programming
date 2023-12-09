@@ -1,20 +1,58 @@
 ﻿  01_Lights.cpp
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(38,1): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(157,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=GLfloat
-          ]
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
-          with
-          [
-              _Ty=GLfloat
-          ]
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(214,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(263,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(356,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(374,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(390,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\OpenGLGlutGlfwShaderTemplate\Shape.h(441,1): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
-  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\_\__OpenGL Projects\GAME2012_W13_FullLights_Start\Bin\OpenGLGlutGlfwShaderTemplate.exe
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(38,28): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(157,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(157,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         with
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         [
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:             _Ty=GLfloat
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         ]
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         with
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         [
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:             _Ty=GLfloat
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         ]
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(214,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(214,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(263,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(263,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(356,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(356,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(374,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(390,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(441,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\Shape.h(441,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file '01_Lights.cpp')
+  
+  prepShader.cpp
+C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\OpenGLGlutGlfwShaderTemplate\prepShader.cpp(16,19): warning C4244: 'initializing': conversion from 'std::streamoff' to 'int', possible loss of data
+  Generating Code...
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> C:\Users\markw\Documents\George Brown College Year 2 Semester 1\GAME2012 3D Graphics Programming\GAME2012_W14_FullLights_Final\Bin\OpenGLGlutGlfwShaderTemplate.exe
