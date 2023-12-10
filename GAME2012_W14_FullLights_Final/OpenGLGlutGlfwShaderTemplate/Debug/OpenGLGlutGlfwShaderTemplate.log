@@ -1,0 +1,23 @@
+﻿01_Lights.obj : error LNK2019: unresolved external symbol __imp__glewInit@0 referenced in function _main
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewBindBuffer referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewBufferData referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewGenBuffers referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewAttachShader referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewCreateProgram referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewEnableVertexAttribArray referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewGetUniformLocation referenced in function "void __cdecl calculateView(void)" (?calculateView@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewLinkProgram referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewUniform1f referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewUniform1i referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewUniform3f referenced in function "void __cdecl calculateView(void)" (?calculateView@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewUniformMatrix4fv referenced in function "void __cdecl transformObject(struct glm::tvec3<float,0>,struct glm::tvec3<float,0>,float,struct glm::tvec3<float,0>)" (?transformObject@@YAXU?$tvec3@M$0A@@glm@@0M0@Z)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewUseProgram referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewVertexAttribPointer referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewGenerateMipmap referenced in function "void __cdecl init(void)" (?init@@YAXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewBindVertexArray referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+01_Lights.obj : error LNK2019: unresolved external symbol __imp____glewGenVertexArrays referenced in function "public: void __thiscall Shape::BufferShape(void)" (?BufferShape@Shape@@QAEXXZ)
+prepShader.obj : error LNK2019: unresolved external symbol __imp____glewCompileShader referenced in function "int __cdecl setShader(char *,char *)" (?setShader@@YAHPAD0@Z)
+prepShader.obj : error LNK2019: unresolved external symbol __imp____glewCreateShader referenced in function "int __cdecl setShader(char *,char *)" (?setShader@@YAHPAD0@Z)
+prepShader.obj : error LNK2019: unresolved external symbol __imp____glewShaderSource referenced in function "int __cdecl setShader(char *,char *)" (?setShader@@YAHPAD0@Z)
+glew32.lib : warning LNK4272: library machine type 'x64' conflicts with target machine type 'x86'
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_W14_FullLights_Final\Debug\OpenGLGlutGlfwShaderTemplate.exe : fatal error LNK1120: 21 unresolved externals

@@ -1,0 +1,55 @@
+﻿  GAME2012_A4_JarlettMark.cpp
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(38,28): warning C4267: 'return': conversion from 'size_t' to 'GLsizei', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(157,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(157,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         with
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         [
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:             _Ty=GLfloat
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(169,30): warning C4244:         ]
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244: 'argument': conversion from 'int' to '_Ty', possible loss of data
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         with
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         [
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:             _Ty=GLfloat
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(170,30): warning C4244:         ]
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(214,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(214,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(263,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(263,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(356,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(356,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(374,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(390,20): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(441,94): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\OpenGLGlutGlfwShaderTemplate\Shape.h(441,55): warning C4267: 'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  (compiling source file 'GAME2012_A4_JarlettMark.cpp')
+  
+  OpenGLGlutGlfwShaderTemplate.vcxproj -> D:\Documents\GBC Year 2 Semester 1\GAME2012-3D-Graphics-Programming\GAME2012_A4_JarlettMark\Bin\OpenGLGlutGlfwShaderTemplate.exe
