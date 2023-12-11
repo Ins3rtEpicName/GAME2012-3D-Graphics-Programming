@@ -206,9 +206,9 @@ struct Grid : public Shape // Flat grid on ground. Starts at 0,0,0 and increases
 			i++;
 		}
 		for (int i = 0; i < shape_vertices.size(); i += 3)
-		{
-			shape_uvs.push_back(shape_vertices[i]); // No texture, so value doesn't matter.
-			shape_uvs.push_back(shape_vertices[i + 1]);
+		{																// for texture applied per grid square use commented code instead
+			shape_uvs.push_back(shape_vertices[i] / rows);  		// shape_uvs.push_back(shape_vertices[i]);
+			shape_uvs.push_back(shape_vertices[i + 1] / rows); 	  	// shape_uvs.push_back(shape_vertices[i + 1]);
 		}
 		ColorShape(1.0f, 1.0f, 1.0f);
 		CalcAverageNormals(shape_indices, shape_indices.size(), shape_vertices, shape_vertices.size());
