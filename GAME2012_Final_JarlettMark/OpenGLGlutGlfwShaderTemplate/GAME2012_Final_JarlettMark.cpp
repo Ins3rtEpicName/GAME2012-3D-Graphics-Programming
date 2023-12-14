@@ -4,7 +4,7 @@
 // Final Assignment submission.
 //
 // Description:
-// Final Assignment project, total size 40x30.
+// Final Assignment project, total size 40 width, 30 length.
 // 
 //
 //*****************************************************************************
@@ -66,9 +66,10 @@ glm::mat4 View, Projection;
 unsigned short keys = 0; // Initialized to 0 or 0b00000000.
 
 // Texture variables.
-GLuint officeFloorID, officeWallID, concreteFloorID, brickID, warehouseMetalWallID, woodWallID;
+GLuint officeFloorID, officeWallID, concreteFloorID, brickID, warehouseMetalWallID,
+woodWallID, supportBeamID, crateID, shippingContainerID, weaponRackID, ammoPickupID;
 GLint width, height, bitDepth;
-
+float rotationIncrement;
 
 // Light objects. Now OOP.
 AmbientLight aLight(
@@ -76,33 +77,47 @@ AmbientLight aLight(
 	0.1f);								// Diffuse strength.
 
 DirectionalLight dLight(
-	glm::vec3(-1.0f, 0.0f, -0.5f),		// Direction.
+	glm::vec3(0.5f, 0.5f, -0.5f),		// Direction.
 	glm::vec3(1.0f, 1.0f, 1.0f),		// Diffuse color.
 	0.5f);								// Diffuse strength.
 
-PointLight pLights[1] = {
-	{ 
-		glm::vec3(5.0f, 3.0f, -5.0f),	// Position.
-		20.0f,							// Range.
+PointLight pLights[4] = {
+	{
+		glm::vec3(7.0f, 4.0f, -5.0f),	// Position.
+		30.0f,							// Range.
 		1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
 		glm::vec3(1.0f, 1.0f, 1.0f),	// Diffuse color.
 		1.0f							// Diffuse strength.
-	}						
-	//{ 
-	//	glm::vec3(7.5f, 0.5f, -5.5f),	// Position.
-	//	5.0f,							// Range.
-	//	1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
-	//	glm::vec3(1.0f, 0.2f, 0.2f),	// Diffuse color.
-	//	1.0f							// Diffuse strength.
-	//}
+	},
+	{
+		glm::vec3(25.5f, 4.0f, -5.5f),	// Position.
+		50.0f,							// Range.
+		1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
+		glm::vec3(1.0f, 1.0f, 1.0f),	// Diffuse color.
+		1.0f							// Diffuse strength.
+	},
+	{
+		glm::vec3(15.0f, 4.0f, -19.5f),	// Position.
+		30.0f,							// Range.
+		1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
+		glm::vec3(1.0f, 1.0f, 1.0f),	// Diffuse color.
+		1.0f							// Diffuse strength.
+		},
+	{
+		glm::vec3(9.0f, 5.0f, -33.0f),	// Position.
+		50.0f,							// Range.
+		1.0f, 4.5f, 75.0f,				// Constant, Linear, Quadratic.   
+		glm::vec3(1.0f, 1.0f, 1.0f),	// Diffuse color.
+		1.0f							// Diffuse strength.
+	}
 };	
 
-//SpotLight sLight(
-//	glm::vec3(5.0f, 3.0f, -5.0f),		// Position.
-//	glm::vec3(0.1f, 1.0f, 0.1f),		// Diffuse color.
-//	1.0f,								// Diffuse strength.
-//	glm::vec3(0.0f, -1.0f, 0.25f),		// Direction. Normally opposite because it's used in dot product. See constructor.
-//	20.0f);								// Edge.
+SpotLight sLight(
+	glm::vec3(16.0f, 8.0f, -18.0f),		// Position.
+	glm::vec3(1.0f, 1.0f, 1.0f),		// Diffuse color.
+	0.5f,								// Diffuse strength.
+	glm::vec3(0.0f, -1.0f, 0.4f),		// Direction. Normally opposite because it's used in dot product. See constructor.
+	35.0f);								// Edge.
 
 Material mat = { 1.0f, 32 };
 
@@ -112,12 +127,12 @@ glm::vec3 position, frontVec, worldUp, upVec, rightVec; // Set by function
 GLfloat pitch, yaw;
 int lastX, lastY;
 
+
 // Object data.
 	// Floors
 Grid g_officeGrid(10, 30);
 Grid g_warehouseGrid(30, 30);
 	// Walls
-
 Cube24 g_cube24_1x4(1.0f, 4.0f, 0.1f);
 Cube24 g_cube24_1x11(11.0f, 1.0f, 0.1f);
 Cube24 g_cube24_2x4(2.0f, 4.0f, 0.1f);
@@ -129,7 +144,23 @@ Cube24 g_cube24_10x4(10.0f, 4.0f, 0.1f);
 Cube24 g_cube24_14x4(14.0f, 4.0f, 0.1f);
 Cube24 g_cube24_30x4(30.0f, 4.0f, 0.1f);
 Cube24 g_cube24_40x4(40.0f, 4.0f, 0.1f);
-//Prism g_prism(20);
+	// Props
+Cube24 g_cube24_1x1x01(1.0f, 1.0f, 0.1f);
+Cube24 g_cube24_1x1x1(1.0f, 1.0f, 1.0f);
+Cube24 g_cube24_3x3x2(3.0f, 3.0f, 2.0f);
+	// Support Beams
+Cube24 g_cube24_1x4x1(1.0f, 4.0f, 1.0f);
+Prism g_prism(32, 1, 1);
+	// Pickups
+Cube24 g_cube24_ammo1(0.5f, 0.5f, 0.5f);
+Cube24 g_cube24_ammo2(0.5f, 0.5f, 0.5f);
+Cube24 g_cube24_ammo3(0.5f, 0.5f, 0.5f);
+Cube24 g_cube24_ammo4(0.5f, 0.5f, 0.5f);
+glm::vec3 ammo1Pos{16.0f, 1.0f, -2.0f};
+glm::vec3 ammo2Pos{2.0f, 1.0f, -37.0f};
+glm::vec3 ammo3Pos{15.5f, 1.0f, -37.5f};
+glm::vec3 ammo4Pos{26.0f, 1.0f, -30.0f};
+
 
 void timer(int); // Prototype.
 
@@ -202,22 +233,6 @@ void init(void)
 	stbi_image_free(image);
 	// End second image.
 
-	// Load third image.
-	image = stbi_load("../Assets/img/brick.jpg", &width, &height, &bitDepth, 0);
-	if (!image) { cout << "Unable to load file!" << endl; }
-	glGenTextures(1, &brickID);
-	glBindTexture(GL_TEXTURE_2D, brickID);
-	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
-	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-	glGenerateMipmap(GL_TEXTURE_2D);
-	stbi_image_free(image);
-	// End third image.
-
 	image = stbi_load("../Assets/img/officeWall3.jpg", &width, &height, &bitDepth, 0);
 	if (!image) { cout << "Unable to load file!" << endl; }
 	glGenTextures(1, &officeWallID);
@@ -260,6 +275,76 @@ void init(void)
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(image);
 
+	image = stbi_load("../Assets/img/supportBeam.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &supportBeamID);
+	glBindTexture(GL_TEXTURE_2D, supportBeamID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
+	image = stbi_load("../Assets/img/crate.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &crateID);
+	glBindTexture(GL_TEXTURE_2D, crateID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
+	image = stbi_load("../Assets/img/shippingContainer.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &shippingContainerID);
+	glBindTexture(GL_TEXTURE_2D, shippingContainerID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
+	image = stbi_load("../Assets/img/weaponRack.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &weaponRackID);
+	glBindTexture(GL_TEXTURE_2D, weaponRackID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
+	image = stbi_load("../Assets/img/ammoPickup.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &ammoPickupID);
+	glBindTexture(GL_TEXTURE_2D, ammoPickupID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
 	glUniform1i(glGetUniformLocation(program, "texture0"), 0);
 
 	// Setting material values.
@@ -276,19 +361,22 @@ void init(void)
 	glUniform3f(glGetUniformLocation(program, "dLight.direction"), dLight.direction.x, dLight.direction.y, dLight.direction.z);
 
 	//// Setting spot light.
-	//glUniform3f(glGetUniformLocation(program, "sLight.base.diffuseColor"), sLight.diffuseColor.x, sLight.diffuseColor.y, sLight.diffuseColor.z);
-	//glUniform1f(glGetUniformLocation(program, "sLight.base.diffuseStrength"), sLight.diffuseStrength);
-	//glUniform3f(glGetUniformLocation(program, "sLight.position"), sLight.position.x, sLight.position.y, sLight.position.z);
-	//glUniform3f(glGetUniformLocation(program, "sLight.direction"), sLight.direction.x, sLight.direction.y, sLight.direction.z);
-	//glUniform1f(glGetUniformLocation(program, "sLight.edge"), sLight.edgeRad);
+	glUniform3f(glGetUniformLocation(program, "sLight.base.diffuseColor"), sLight.diffuseColor.x, sLight.diffuseColor.y, sLight.diffuseColor.z);
+	glUniform1f(glGetUniformLocation(program, "sLight.base.diffuseStrength"), sLight.diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "sLight.position"), sLight.position.x, sLight.position.y, sLight.position.z);
+	glUniform3f(glGetUniformLocation(program, "sLight.direction"), sLight.direction.x, sLight.direction.y, sLight.direction.z);
+	glUniform1f(glGetUniformLocation(program, "sLight.edge"), sLight.edgeRad);
 
 	// All VAO/VBO data now in Shape.h! But we still need to invoke BufferShape() this AFTER OpenGL is initialized.
 	g_officeGrid.BufferShape();
 	g_warehouseGrid.BufferShape();
-	
-	g_cube24_1x11.BufferShape();
+	g_cube24_1x1x1.BufferShape();
+	g_cube24_1x1x01.BufferShape();
+	g_cube24_1x4x1.BufferShape();
 	g_cube24_1x4.BufferShape();
+	g_cube24_1x11.BufferShape();
 	g_cube24_2x4.BufferShape();
+	g_cube24_3x3x2.BufferShape();
 	g_cube24_3x4.BufferShape();
 	g_cube24_4x4.BufferShape();
 	g_cube24_5x4.BufferShape();
@@ -297,7 +385,13 @@ void init(void)
 	g_cube24_14x4.BufferShape();
 	g_cube24_30x4.BufferShape();
 	g_cube24_40x4.BufferShape();
-	//g_prism.BufferShape();
+
+	g_prism.BufferShape();
+
+	g_cube24_ammo1.BufferShape();
+	g_cube24_ammo2.BufferShape();
+	g_cube24_ammo3.BufferShape();
+	g_cube24_ammo4.BufferShape();
 
 	// Enable depth testing and face culling. 
 	glEnable(GL_DEPTH_TEST);
@@ -319,12 +413,28 @@ void SetUpLights()
 	glUniform1f(glGetUniformLocation(program, "pLights[0].linear"), pLights[0].linear);
 	glUniform1f(glGetUniformLocation(program, "pLights[0].quadratic"), pLights[0].quadratic);
 
-	glUniform3f(glGetUniformLocation(program, "pLights[1].base.diffuseColor"), pLights[0].diffuseColor.x, pLights[0].diffuseColor.y, pLights[0].diffuseColor.z);
-	glUniform1f(glGetUniformLocation(program, "pLights[1].base.diffuseStrength"), pLights[0].diffuseStrength);
-	glUniform3f(glGetUniformLocation(program, "pLights[1].position"), pLights[0].position.x, pLights[0].position.y, pLights[0].position.z);
-	glUniform1f(glGetUniformLocation(program, "pLights[1].constant"), pLights[0].constant);
-	glUniform1f(glGetUniformLocation(program, "pLights[1].linear"), pLights[0].linear);
-	glUniform1f(glGetUniformLocation(program, "pLights[1].quadratic"), pLights[0].quadratic);
+	glUniform3f(glGetUniformLocation(program, "pLights[1].base.diffuseColor"), pLights[1].diffuseColor.x, pLights[1].diffuseColor.y, pLights[1].diffuseColor.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[1].base.diffuseStrength"), pLights[1].diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLights[1].position"), pLights[1].position.x, pLights[1].position.y, pLights[1].position.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[1].constant"), pLights[1].constant);
+	glUniform1f(glGetUniformLocation(program, "pLights[1].linear"), pLights[1].linear);
+	glUniform1f(glGetUniformLocation(program, "pLights[1].quadratic"), pLights[1].quadratic);
+
+	glUniform3f(glGetUniformLocation(program, "pLights[2].base.diffuseColor"), pLights[2].diffuseColor.x, pLights[2].diffuseColor.y, pLights[2].diffuseColor.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[2].base.diffuseStrength"), pLights[2].diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLights[2].position"), pLights[2].position.x, pLights[2].position.y, pLights[0].position.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[2].constant"), pLights[2].constant);
+	glUniform1f(glGetUniformLocation(program, "pLights[2].linear"), pLights[2].linear);
+	glUniform1f(glGetUniformLocation(program, "pLights[2].quadratic"), pLights[2].quadratic);
+
+	glUniform3f(glGetUniformLocation(program, "pLights[3].base.diffuseColor"), pLights[3].diffuseColor.x, pLights[3].diffuseColor.y, pLights[3].diffuseColor.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[3].base.diffuseStrength"), pLights[3].diffuseStrength);
+	glUniform3f(glGetUniformLocation(program, "pLights[3].position"), pLights[3].position.x, pLights[3].position.y, pLights[3].position.z);
+	glUniform1f(glGetUniformLocation(program, "pLights[3].constant"), pLights[3].constant);
+	glUniform1f(glGetUniformLocation(program, "pLights[3].linear"), pLights[3].linear);
+	glUniform1f(glGetUniformLocation(program, "pLights[3].quadratic"), pLights[3].quadratic);
+
+
 }
 
 //---------------------------------------------------------------------
@@ -730,7 +840,252 @@ void display(void)
 		// 110
 	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(27.0f, 0.0f, -16.0f));
 	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 111
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(27.0f, 0.0f, -37.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
 
+
+	// Window-frames
+		// Office
+	glBindTexture(GL_TEXTURE_2D, officeWallID);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(17.9f, 0.0f, -10.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(17.9f, 3.0f, -10.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+		// Warehouse 
+	glBindTexture(GL_TEXTURE_2D, warehouseMetalWallID);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(8.0f, 0.0f, -14.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(8.0f, 3.0f, -14.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+		// Shoot-house
+	glBindTexture(GL_TEXTURE_2D, woodWallID);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(10.0f, 0.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(10.0f, 3.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(13.0f, 0.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(13.0f, 3.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(16.0f, 0.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(16.0f, 3.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(19.0f, 0.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(19.0f, 3.0f, -17.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(4.0f, 0.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(4.0f, 3.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(6.0f, 0.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(6.0f, 3.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(18.9f, 0.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(18.9f, 3.0f, -27.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(3.0f, 0.0f, -28.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(3.0f, 3.0f, -28.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(5.9f, 0.0f, -29.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(5.9f, 3.0f, -29.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(4.9f, 0.0f, -30.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(4.9f, 3.0f, -30.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(23.9f, 0.0f, -30.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(23.9f, 3.0f, -30.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 0.0f, -31.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -31.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(1.0f, 0.0f, -32.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(1.0f, 3.0f, -32.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(23.9f, 0.0f, -34.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(23.9f, 3.0f, -34.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 0.0f, -35.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -35.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+	// Door-frames
+		// Office
+	glBindTexture(GL_TEXTURE_2D, officeWallID);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(29.9f, 3.0f, -4.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -1.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(18.9f, 3.0f, -7.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(12.9f, 3.0f, -7.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(11.9f, 3.0f, -5.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+		// Warehouse
+	glBindTexture(GL_TEXTURE_2D, warehouseMetalWallID);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(12.9f, 3.0f, -11.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -11.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(25.9f, 3.0f, -14.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+		// Shoot-house
+	glBindTexture(GL_TEXTURE_2D, woodWallID);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(9.0f, 3.0f, -19.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -19.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(18.9f, 3.0f, -23.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(9.9f, 3.0f, -25.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(14.9f, 3.0f, -29.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(14.9f, 3.0f, -34.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(8.9f, 3.0f, -34.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(2.9f, 3.0f, -35.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(17.0f, 3.0f, -35.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(17.0f, 3.0f, -29.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 3.0f, -28.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(25.0f, 3.0f, -37.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.1f, 1.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(27.0f, 3.0f, -28.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+
+
+	// Support Beams
+		// Left Col
+	glBindTexture(GL_TEXTURE_2D, supportBeamID);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(0.1f, 0.0f, -39.9f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(0.1f, 0.0f, -27.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(0.1f, 0.0f, -22.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(0.1f, 0.0f, -15.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// Right Col
+	transformObject(glm::vec3(0.9f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(29.0f, 0.0f, -39.9f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.9f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(29.0f, 0.0f, -27.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.9f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(29.0f, 0.0f, -22.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.9f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(29.0f, 0.0f, -15.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// 36th Row
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(5.0f, 0.0f, -36.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(12.0f, 0.0f, -36.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(19.0f, 0.0f, -36.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(27.0f, 0.0f, -36.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// 27th row
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(8.0f, 0.0f, -27.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(22.0f, 0.0f, -27.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// 22nd row
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(14.0f, 0.0f, -22.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(18.0f, 0.0f, -22.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// 19th row
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(13.0f, 0.0f, -19.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(19.0f, 0.0f, -19.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+		// 15th row
+	transformObject(glm::vec3(1.0f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(6.0f, 0.0f, -15.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.8f, 4.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(24.1f, 0.0f, -15.0f));
+	g_prism.DrawShape(GL_TRIANGLES);
+
+
+
+	// Props
+		// Crates
+	glBindTexture(GL_TEXTURE_2D, crateID);
+	transformObject(glm::vec3(1.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(13.0f, 0.0f, -36.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(7.0f, 0.0f, -31.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(18.0f, 0.0f, -29.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+			// 2width
+	transformObject(glm::vec3(2.0f, 1.0f, 1.0f), Y_AXIS, 90.0f, glm::vec3(10.0f, 0.0f, -30.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(24.0f, 0.0f, -33.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+			// firing range crates
+	transformObject(glm::vec3(2.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(3.0, 0.0f, -4.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(6.0f, 0.0f, -4.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(2.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(9.0f, 0.0f, -4.0f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+			// 3width
+	transformObject(glm::vec3(3.0f, 1.0f, 1.0f), Y_AXIS, 0.0f, glm::vec3(15.0f, 0.0f, -19.5f));
+	g_cube24_1x1x01.DrawShape(GL_TRIANGLES);
+
+		// Shipping Containers
+	glBindTexture(GL_TEXTURE_2D, shippingContainerID);
+	transformObject(glm::vec3(3.0f, 3.0f, 2.0f), Y_AXIS, 90.0f, glm::vec3(2.0f, 0.0f, -15.0f));
+	g_cube24_3x3x2.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(3.0f, 3.0f, 2.0f), Y_AXIS, 90.0f, glm::vec3(2.0f, 0.0f, -20.0f));
+	g_cube24_3x3x2.DrawShape(GL_TRIANGLES);
+
+		// Weapon Racks
+	glBindTexture(GL_TEXTURE_2D, weaponRackID);
+	transformObject(glm::vec3(1.0f, 3.0f, 0.05f), Y_AXIS, 90.0f, glm::vec3(16.8f, 0.0f, -0.1f));
+	g_cube24_1x1x1.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(1.0f, 3.0f, 0.05f), Y_AXIS, 90.0f, glm::vec3(16.8f, 0.0f, -3.0f));
+	g_cube24_1x1x1.DrawShape(GL_TRIANGLES);
+
+	// Pickups
+	glBindTexture(GL_TEXTURE_2D, ammoPickupID);
+	transformObject(glm::vec3(0.5f, 0.5f, 0.5f), Y_AXIS, rotationIncrement += 0.3f , ammo1Pos);
+	g_cube24_ammo1.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.5f, 0.5f, 0.5f), Y_AXIS, rotationIncrement += 0.3f, ammo2Pos);
+	g_cube24_ammo2.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.5f, 0.5f, 0.5f), Y_AXIS, rotationIncrement += 0.3f, ammo3Pos);
+	g_cube24_ammo3.DrawShape(GL_TRIANGLES);
+	transformObject(glm::vec3(0.5f, 0.5f, 0.5f), Y_AXIS, rotationIncrement += 0.3f, ammo4Pos);
+	g_cube24_ammo4.DrawShape(GL_TRIANGLES);
+
+	//float distance =  - position
+	//if ()
 
 	glutSwapBuffers(); // Now for a potentially smoother render.
 }

@@ -39,7 +39,6 @@
   <ItemGroup>
     <Image Include="..\Assets\img\alex.jpg" />
     <Image Include="..\Assets\img\blank.jpg" />
-    <Image Include="..\Assets\img\brick.jpg" />
     <Image Include="..\Assets\img\gizmo.png" />
     <Image Include="..\Assets\img\wook.png" />
   </ItemGroup>
