@@ -66,7 +66,7 @@ glm::mat4 View, Projection;
 unsigned short keys = 0; // Initialized to 0 or 0b00000000.
 
 // Texture variables.
-GLuint officeFloorID, officeWallID, concreteFloorID, brickID;
+GLuint officeFloorID, officeWallID, concreteFloorID, brickID, warehouseMetalWallID, woodWallID;
 GLint width, height, bitDepth;
 
 
@@ -117,9 +117,9 @@ int lastX, lastY;
 Grid g_officeGrid(10, 30);
 Grid g_warehouseGrid(30, 30);
 	// Walls
-Cube24 g_cube24_30x4(30.0f, 4.0f, 0.1f);
-Cube24 g_cube24_40x4(40.0f, 4.0f, 0.1f);
+
 Cube24 g_cube24_1x4(1.0f, 4.0f, 0.1f);
+Cube24 g_cube24_1x11(11.0f, 1.0f, 0.1f);
 Cube24 g_cube24_2x4(2.0f, 4.0f, 0.1f);
 Cube24 g_cube24_3x4(3.0f, 4.0f, 0.1f);
 Cube24 g_cube24_4x4(4.0f, 4.0f, 0.1f);
@@ -127,6 +127,8 @@ Cube24 g_cube24_5x4(5.0f, 4.0f, 0.1f);
 Cube24 g_cube24_8x4(8.0f, 4.0f, 0.1f);
 Cube24 g_cube24_10x4(10.0f, 4.0f, 0.1f);
 Cube24 g_cube24_14x4(14.0f, 4.0f, 0.1f);
+Cube24 g_cube24_30x4(30.0f, 4.0f, 0.1f);
+Cube24 g_cube24_40x4(40.0f, 4.0f, 0.1f);
 //Prism g_prism(20);
 
 void timer(int); // Prototype.
@@ -230,6 +232,34 @@ void init(void)
 	glGenerateMipmap(GL_TEXTURE_2D);
 	stbi_image_free(image);
 
+	image = stbi_load("../Assets/img/warehouseMetalWall.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &warehouseMetalWallID);
+	glBindTexture(GL_TEXTURE_2D, warehouseMetalWallID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
+	image = stbi_load("../Assets/img/woodWall.jpg", &width, &height, &bitDepth, 0);
+	if (!image) { cout << "Unable to load file!" << endl; }
+	glGenTextures(1, &woodWallID);
+	glBindTexture(GL_TEXTURE_2D, woodWallID);
+	// Note: image types with native transparency will need to be GL_RGBA instead of GL_RGB.
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+	// glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glGenerateMipmap(GL_TEXTURE_2D);
+	stbi_image_free(image);
+
 	glUniform1i(glGetUniformLocation(program, "texture0"), 0);
 
 	// Setting material values.
@@ -255,8 +285,8 @@ void init(void)
 	// All VAO/VBO data now in Shape.h! But we still need to invoke BufferShape() this AFTER OpenGL is initialized.
 	g_officeGrid.BufferShape();
 	g_warehouseGrid.BufferShape();
-	g_cube24_30x4.BufferShape();
-	g_cube24_40x4.BufferShape();
+	
+	g_cube24_1x11.BufferShape();
 	g_cube24_1x4.BufferShape();
 	g_cube24_2x4.BufferShape();
 	g_cube24_3x4.BufferShape();
@@ -265,6 +295,8 @@ void init(void)
 	g_cube24_8x4.BufferShape();
 	g_cube24_10x4.BufferShape();
 	g_cube24_14x4.BufferShape();
+	g_cube24_30x4.BufferShape();
+	g_cube24_40x4.BufferShape();
 	//g_prism.BufferShape();
 
 	// Enable depth testing and face culling. 
@@ -451,7 +483,255 @@ void display(void)
 	g_cube24_14x4.DrawShape(GL_TRIANGLES);
 
 
-	
+
+
+	// Warehouse Area
+		// 32
+	glBindTexture(GL_TEXTURE_2D, warehouseMetalWallID);
+	transformObject(glm::vec3(26.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(0.0f, 0.0f, -14.0f));
+	g_cube24_30x4.DrawShape(GL_TRIANGLES);
+		// 33
+	transformObject(glm::vec3(30.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, -40.0f));
+	g_cube24_30x4.DrawShape(GL_TRIANGLES);
+		// 34
+	transformObject(glm::vec3(30.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(29.9f, 0.0f, -10.0f));
+	g_cube24_30x4.DrawShape(GL_TRIANGLES);
+		// 35
+	transformObject(glm::vec3(8.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(0.0f, 0.0f, -14.0f));
+	g_cube24_8x4.DrawShape(GL_TRIANGLES);
+		// 36
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(10.0f, 0.0f, -14.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 37
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(13.0f, 0.0f, -14.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 38
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(13.0f, 0.0f, -11.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 39
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -14.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 40
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -11.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 41
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(22.0f, 0.0f, -14.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 42
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(28.0f, 0.0f, -14.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+
+
+
+
+	// Shoot-house Area 
+		// 43
+	glBindTexture(GL_TEXTURE_2D, woodWallID);
+	transformObject(glm::vec3(11.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(7.0f, 0.0f, -14.0f));
+	g_cube24_1x11.DrawShape(GL_TRIANGLES);
+		// 44
+	transformObject(glm::vec3(11.0f, 1.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(24.0f, 0.0f, -14.0f));
+	g_cube24_1x11.DrawShape(GL_TRIANGLES);
+		// 45
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(9.0f, 0.0f, -17.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 46
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(9.0f, 0.0f, -17.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 47
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(12.0f, 0.0f, -17.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 48
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(15.0f, 0.0f, -17.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 49
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(18.0f, 0.0f, -17.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 50
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(21.0f, 0.0f, -17.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 51
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 0.0f, -17.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 52
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(21.9f, 0.0f, -21.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 53
+	transformObject(glm::vec3(6.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(9.0f, 0.0f, -21.0f));
+	g_cube24_5x4.DrawShape(GL_TRIANGLES);
+		// 54
+	transformObject(glm::vec3(10.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(9.0f, 0.0f, -23.0f));
+	g_cube24_10x4.DrawShape(GL_TRIANGLES);
+		// 55
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(20.9f, 0.0f, -23.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 56
+	transformObject(glm::vec3(12.1f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(12.0f, 0.0f, -25.0f));
+	g_cube24_10x4.DrawShape(GL_TRIANGLES);
+		// 57
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(7.0f, 0.0f, -25.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 58
+	transformObject(glm::vec3(8.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(7.0f, 0.0f, -27.0f));
+	g_cube24_8x4.DrawShape(GL_TRIANGLES);
+		// 59
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(5.0f, 0.0f, -27.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 60
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(3.0f, 0.0f, -27.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 61
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(3.0f, 0.0f, -27.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 62
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(3.0f, 0.0f, -29.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 63
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(1.0f, 0.0f, -31.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 64
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(1.0f, 0.0f, -31.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 65
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(1.0f, 0.0f, -34.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 66
+	transformObject(glm::vec3(14.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(1.0f, 0.0f, -38.0f));
+	g_cube24_14x4.DrawShape(GL_TRIANGLES);
+		// 67
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(3.0f, 0.0f, -38.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 68
+	transformObject(glm::vec3(2.1f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(3.0f, 0.0f, -35.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 69
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(3.0f, 0.0f, -33.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 70
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(5.0f, 0.0f, -33.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 71
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(5.0f, 0.0f, -30.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 72
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(4.9f, 0.0f, -29.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 73
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(8.0f, 0.0f, -29.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 74
+	transformObject(glm::vec3(5.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(8.9f, 0.0f, -29.0f));
+	g_cube24_5x4.DrawShape(GL_TRIANGLES);
+		// 75
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(8.9f, 0.0f, -36.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 76
+	transformObject(glm::vec3(6.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(9.0f, 0.0f, -33.0f));
+	g_cube24_5x4.DrawShape(GL_TRIANGLES);
+		// 77
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(15.0f, 0.0f, -36.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 78
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(15.0f, 0.0f, -34.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 79
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(15.0f, 0.0f, -29.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 80
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(17.0f, 0.0f, -29.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 81
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(17.0f, 0.0f, -31.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 82
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(17.0f, 0.0f, -34.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 83
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 90.0f, glm::vec3(17.0f, 0.0f, -37.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 84
+	transformObject(glm::vec3(5.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(17.0f, 0.0f, -38.0f));
+	g_cube24_5x4.DrawShape(GL_TRIANGLES);
+		// 85
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -39.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 86
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -35.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 87
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -31.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 88
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(20.0f, 0.0f, -27.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 89
+	transformObject(glm::vec3(3.1f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(22.0f, 0.0f, -28.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 90
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(22.0f, 0.0f, -28.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 91
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(16.9f, 0.0f, -27.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 92
+	transformObject(glm::vec3(7.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(22.0f, 0.0f, -39.0f));
+	g_cube24_5x4.DrawShape(GL_TRIANGLES);
+		// 93
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(24.0f, 0.0f, -37.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 94
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(24.0f, 0.0f, -37.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 95
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(24.0f, 0.0f, -34.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 96
+	transformObject(glm::vec3(4.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(24.0f, 0.0f, -30.0f));
+	g_cube24_4x4.DrawShape(GL_TRIANGLES);
+		// 97
+	transformObject(glm::vec3(3.1f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(23.9f, 0.0f, -29.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 98
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(27.0f, 0.0f, -29.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 99
+	transformObject(glm::vec3(19.1f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(29.0f, 0.0f, -39.0f));
+	g_cube24_14x4.DrawShape(GL_TRIANGLES);
+		// 100
+	transformObject(glm::vec3(1.1f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(24.0f, 0.0f, -26.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 101
+	transformObject(glm::vec3(1.1f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(25.0f, 0.0f, -26.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 102
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(25.0f, 0.0f, -25.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 103
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(27.0f, 0.0f, -26.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 104
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(25.0f, 0.0f, -24.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 105
+	transformObject(glm::vec3(10.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(25.0f, 0.0f, -24.0f));
+	g_cube24_10x4.DrawShape(GL_TRIANGLES);
+		// 106
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(27.0f, 0.0f, -22.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 107
+	transformObject(glm::vec3(2.0f, 4.0f, 0.1f), Y_AXIS, -90.0f, glm::vec3(27.0f, 0.0f, -22.0f));
+	g_cube24_2x4.DrawShape(GL_TRIANGLES);
+		// 108
+	transformObject(glm::vec3(1.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(29.0f, 0.0f, -20.0f));
+	g_cube24_1x4.DrawShape(GL_TRIANGLES);
+		// 109
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(25.0f, 0.0f, -18.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+		// 110
+	transformObject(glm::vec3(3.0f, 4.0f, 0.1f), Y_AXIS, 0.0f, glm::vec3(27.0f, 0.0f, -16.0f));
+	g_cube24_3x4.DrawShape(GL_TRIANGLES);
+
+
 	glutSwapBuffers(); // Now for a potentially smoother render.
 }
 
